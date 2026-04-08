@@ -23,6 +23,9 @@ async def connect_db() -> None:
     from app.services.user.models import OrganizationDocument, UserDocument
 
     _client = AsyncIOMotorClient(settings.mongo_uri)
+    if _client is None:
+        raise RuntimeError("Failed to initialize MongoDB client.")
+
     db = _client.get_default_database()
 
     await init_beanie(

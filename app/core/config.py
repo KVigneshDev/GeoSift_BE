@@ -15,10 +15,10 @@ class Settings(BaseSettings):
     port: int = 4000
 
     # Mongo
-    mongo_uri: str = "mongodb://localhost:27017/yourdb"
+    mongo_uri: str
 
     # Auth
-    secret_key: str = "change-me"
+    secret_key: str
     jwt_expires_hours: int = 8
     jwt_algorithm: str = "HS256"
 
@@ -31,7 +31,7 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
-    return Settings()
+    return Settings() # type: ignore
 
 
 settings = get_settings()

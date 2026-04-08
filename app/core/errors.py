@@ -1,7 +1,7 @@
 """Application-level GraphQL errors.
 Strawberry surfaces any exception raised inside a resolver as a GraphQL error;
 we attach a machine-readable `code` via the `extensions` field so clients can
-branch on error type just like with Apollo Server.
+branch on error type.
 """
 from __future__ import annotations
 

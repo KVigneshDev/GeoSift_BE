@@ -8,6 +8,8 @@ from __future__ import annotations
 import asyncio
 import math
 from typing import Any
+from pathlib import Path
+import json
 
 from app.services.cache.service import CacheService
 from app.services.property.constants import (
@@ -16,12 +18,15 @@ from app.services.property.constants import (
     RANGE_COLUMNS,
     UNIFIED_SCHEMA,
 )
-from app.services.property.mock_data import rows
 from app.services.property.queries import (
     get_properties_for_filtering_query,
     get_property_features_query,
 )
 from app.services.property.utils import to_label, validate_bbox
+
+_PROPERTY_PATH = Path(__file__).parent / "mock_data.json"
+_PROPERTY_DATA = json.loads(_PROPERTY_PATH.read_text())
+
 
 # ---------------------------------------------------------------------------
 # Module-level lookup maps (built once at import time for O(1) access)
@@ -105,7 +110,7 @@ class PropertyService:
             # result = await asyncio.to_thread(lambda: list(job.result()))
             # all_properties = [dict(r) for r in result]
 
-            all_properties = rows
+            all_properties = _PROPERTY_DATA
             await CacheService.set(raw_cache_key, all_properties)
 
         # Step 2: in-memory filtering
