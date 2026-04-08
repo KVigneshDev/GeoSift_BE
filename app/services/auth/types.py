@@ -16,7 +16,6 @@ class RegisterInput:
     password: str
     phone: str
     organization: str
-    tin: str
 
 
 @strawberry.type(name="AuthPayload")

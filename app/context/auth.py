@@ -9,16 +9,18 @@ from dataclasses import dataclass
 from typing import Any
 
 from fastapi import Request
-
+from strawberry.fastapi import BaseContext
 from app.core.security import decode_access_token
-from app.loaders import Loaders, create_loaders
+from app.loaders import create_loaders
 
 
 @dataclass
-class GraphQLContext:
-    request: Request
-    user: dict[str, Any] | None
-    loaders: Loaders
+class GraphQLContext(BaseContext):
+    def __init__(self, request: Any, user: Any, loaders: Any):
+        super().__init__() # Initialize the base class
+        self.request = request
+        self.user = user
+        self.loaders = loaders
 
 
 async def get_context(request: Request) -> GraphQLContext:

@@ -25,7 +25,6 @@ class UserRole(str, Enum):
 
 class OrganizationDocument(Document):
     name: str
-    tin: str
     users: list[PydanticObjectId] = Field(default_factory=list)
     deleted_at: Optional[datetime] = None
     created_at: datetime = Field(default_factory=_utcnow)
@@ -35,7 +34,6 @@ class OrganizationDocument(Document):
         name = "organizations"
         indexes = [
             "name",
-            "tin",
         ]
 
 

@@ -1,8 +1,4 @@
 """User service: registration and login business logic.
-
-Direct port of `services/user/user.service.js`. Errors raised here are
-GraphQL-aware (`AppError` subclasses) so they propagate cleanly through
-Strawberry resolvers with the right `extensions.code`.
 """
 from __future__ import annotations
 
@@ -21,7 +17,6 @@ class UserService:
         password: str,
         phone: str,
         organization: str,
-        tin: str,
     ) -> bool:
         existing = await UserDocument.find_one(UserDocument.email == email)
         if existing is not None:
@@ -31,7 +26,7 @@ class UserService:
             OrganizationDocument.name == organization
         )
         if org is None:
-            org = OrganizationDocument(name=organization, tin=tin)
+            org = OrganizationDocument(name=organization)
             await org.insert()
 
         user = UserDocument(

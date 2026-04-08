@@ -12,14 +12,13 @@ from app.services.user.types import UserType
 @strawberry.type
 class AuthMutation:
     @strawberry.mutation
-    async def register(self, input_data: RegisterInput) -> bool:
+    async def register(self, input: RegisterInput) -> bool:
         await UserService.create_user(
-            name=input_data.name,
-            email=input_data.email,
-            password=input_data.password,
-            phone=input_data.phone,
-            organization=input_data.organization,
-            tin=input_data.tin,
+            name=input.name,
+            email=input.email,
+            password=input.password,
+            phone=input.phone,
+            organization=input.organization,
         )
         return True
 

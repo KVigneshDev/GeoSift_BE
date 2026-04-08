@@ -12,7 +12,7 @@ from app.core.config import settings
 
 logger = logging.getLogger(__name__)
 
-_client: AsyncIOMotorClient | None = None
+_client: AsyncIOMotorClient | None = None # type: ignore
 
 
 async def connect_db() -> None:

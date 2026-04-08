@@ -13,7 +13,6 @@ Mirrors `services/user/user.graphql`:
     type Organization {
       id: ID!
       name: String!
-      tin: String
     }
 """
 from __future__ import annotations
@@ -29,14 +28,12 @@ from app.services.user.models import OrganizationDocument, UserDocument
 class OrganizationType:
     id: strawberry.ID
     name: str
-    tin: Optional[str] = None
 
     @classmethod
     def from_document(cls, doc: OrganizationDocument) -> "OrganizationType":
         return cls(
             id=strawberry.ID(str(doc.id)),
             name=doc.name,
-            tin=doc.tin,
         )
 
 
