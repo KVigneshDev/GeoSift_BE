@@ -72,6 +72,10 @@ app.add_middleware(
 graphql_app = AppGraphQLRouter(schema, context_getter=get_context)
 app.include_router(graphql_app, prefix="/graphql")
 
+@app.get('/health')
+async def health_check():
+    return {"status": "ok"}
+
 
 if __name__ == "__main__":
     import uvicorn
